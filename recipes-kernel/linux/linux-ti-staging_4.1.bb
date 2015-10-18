@@ -73,3 +73,4 @@ KERNEL_GIT_URI = "git://git.ti.com/ti-linux-kernel/ti-linux-kernel.git"
 KERNEL_GIT_PROTOCOL = "git"
 SRC_URI += "${KERNEL_GIT_URI};protocol=${KERNEL_GIT_PROTOCOL};branch=${BRANCH} \
             file://defconfig"
+SRC_URI_append_pandaboard = " file://0001-dts-omap4-panda-common-add-pinmux-for-UART4.patch"

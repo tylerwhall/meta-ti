@@ -1,0 +1,41 @@
+From 6f0885da8095119733bc20beacb8ab98f4c54ae1 Mon Sep 17 00:00:00 2001
+From: Tyler Hall <tylerwhall@gmail.com>
+Date: Sun, 17 May 2015 23:44:22 -0400
+Subject: [PATCH] dts: omap4-panda-common: add pinmux for UART4
+
+Currently the UART4 pins are in their default state, assigned to
+nothing. Assign the mux settings so the UART pins on J3 can be used.
+---
+ arch/arm/boot/dts/omap4-panda-common.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm/boot/dts/omap4-panda-common.dtsi b/arch/arm/boot/dts/omap4-panda-common.dtsi
+index 1505135..a2e331e 100644
+--- a/arch/arm/boot/dts/omap4-panda-common.dtsi
++++ b/arch/arm/boot/dts/omap4-panda-common.dtsi
+@@ -197,6 +197,13 @@
+ 			&hsusbb1_pins
+ 	>;
+ 
++	uart4_pins: pinmux_uart4_pins {
++		pinctrl-single,pins = <
++			0x11c (PIN_INPUT | MUX_MODE0)	/* uart4_rx.uart4_rx */
++			0x11e (PIN_OUTPUT | MUX_MODE0)	/* uart4_tx.uart4_tx */
++		>;
++	};
++
+ 	twl6040_pins: pinmux_twl6040_pins {
+ 		pinctrl-single,pins = <
+ 			0xe0 (PIN_OUTPUT | MUX_MODE3)	/* hdq_sio.gpio_127 */
+@@ -491,6 +498,8 @@
+ &uart4 {
+ 	interrupts-extended = <&gic GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH
+ 			       &omap4_pmx_core OMAP4_UART4_RX>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart4_pins>;
+ };
+ 
+ &usb_otg_hs {
+-- 
+2.6.1
+
